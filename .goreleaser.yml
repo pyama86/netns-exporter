@@ -1,24 +1,30 @@
 builds:
-  - id: netns-exporter
-    binary: netns-exporter
+  - id: "netns-exporter"
+    env:
+      - CGO_ENABLED=0
     goos:
       - linux
     goarch:
       - amd64
-    ldflags:
-      -X main.Version={{.Version}}
+    binary: "netns-exporter"
+
 nfpms:
   -
     id: netns-exporter-nfpms
-    name_template: "{{ .ProjectName }}_{{ .Version }}-1_{{ .Arch }}"
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}-1_{{ .Arch }}"
     builds:
     - netns-exporter
     homepage: https://github.com/pyama86/netns-exporter
     maintainer: pyama86 <www.kazu.com@gmail.com>
-    description: netns exporter
+    description: pam module by google oauth
     license: MIT
     formats:
       - deb
       - rpm
     bindir: /usr/bin
     epoch: 1
+
+release:
+  github:
+    owner: pyama86
+    name: netns-exporter
