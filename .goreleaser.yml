@@ -1,0 +1,24 @@
+builds:
+  - id: netns-exporter
+    binary: netns-exporter
+    goos:
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+      -X main.Version={{.Version}}
+nfpms:
+  -
+    id: netns-exporter-nfpms
+    name_template: "{{ .ProjectName }}_{{ .Version }}-1_{{ .Arch }}"
+    builds:
+    - netns-exporter
+    homepage: https://github.com/pyama86/netns-exporter
+    maintainer: pyama86 <www.kazu.com@gmail.com>
+    description: netns exporter
+    license: MIT
+    formats:
+      - deb
+      - rpm
+    bindir: /usr/bin
+    epoch: 1

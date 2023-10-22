@@ -11,7 +11,7 @@ build:
 	go build
 
 build-in-docker:
-	docker run -it --rm -v `pwd`:/go/netns-exporter -w /go/netns-exporter -e CGO_ENABLED=0 -e GOOS=linux golang:1.15 go build
+	docker run -it --rm -v `pwd`:/go/netns-exporter -w /go/netns-exporter -e CGO_ENABLED=0 -e GOOS=linux golang:1.21 go build
 
 docker-image:
 	docker build . -t netns-exporter
@@ -27,3 +27,7 @@ lint:
 define get_go_packages
 	$(shell go list ./... $(foreach pattern,$1,| grep -v /$(pattern)/))
 endef
+
+release:
+	git semv patch --bump
+	goreleaser --rm-dist
